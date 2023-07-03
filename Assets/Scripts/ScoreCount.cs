@@ -10,6 +10,9 @@ public class ScoreCount : MonoBehaviour
     [HideInInspector] public int highScore;
     private Rigidbody rB;
     public GameManager gameManager;
+    public AudioSource source;
+    public AudioClip scream;
+    public AudioClip cheer;
 
     private void Start()
     {
@@ -29,11 +32,15 @@ public class ScoreCount : MonoBehaviour
         if (collision.gameObject.tag == "Human")
         {
             Destroy(collision.gameObject);
+            if(gameManager.canPlay)
+                source.PlayOneShot(scream, 1.25f);
             gameManager.EndGame();
         }
         if (collision.gameObject.tag == "Obstacle")
         {
             UpdateScore(50);
+            if (gameManager.canPlay)
+                source.PlayOneShot(cheer, 0.5f);
             Destroy(collision.gameObject);
             rB.AddForce(Vector3.up * 2, ForceMode.Impulse);
         }

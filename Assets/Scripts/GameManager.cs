@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int highScore;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI scoreText;
+    public AudioSource source;
+    [HideInInspector] public bool canPlay;
 
     void Awake()
     {
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
         playButton.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(true);
+        source.gameObject.SetActive(true);
+        canPlay = true;
     }
 
     public void EndGame()
@@ -38,5 +42,6 @@ public class GameManager : MonoBehaviour
         highScoreText.text = "High Score: " + highScore;
         highScoreText.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
+        canPlay = false;
     }
 }
